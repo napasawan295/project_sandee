@@ -1,0 +1,2 @@
+odom_setup:robot_localization-noetic-devel:rplidar_ros:sim:simple_navigation_goals:slam_toolbox/slam_toolbox:slam_toolbox/slam_toolbox_msgs:slam_toolbox/slam_toolbox_rviz:urdf_sandee
+-DCATKIN_DEVEL_PREFIX=/home/aew/sandee/devel -DCMAKE_INSTALL_PREFIX=/home/aew/sandee/install -G Unix Makefiles

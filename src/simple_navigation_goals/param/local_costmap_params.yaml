@@ -1,0 +1,52 @@
+local_costmap:
+     
+    ## Parameters for setting the threshold on obstacle information
+    # obstacle_range <--> Robot will only updates its map with information about obstacle within this value
+    # raytrace_range <--> Robot attempts to clear out space in front of its values' meter away given sensor readings
+    obstacle_range: 2.5  # ขยายระยะที่สามารถตรวจจับสิ่งกีดขวางได้
+    raytrace_range: 3.0  # ขยายระยะการยิงเส้นตรวจจับสิ่งกีดขวาง
+    
+    # footprint describe the outfit of the robot >> assume the center is located at [0, 0]
+    # footprint: [[-0.20, -0.20], [-0.20, 0.20], [0.20, 0.20], [0.20, -0.20]]
+    footprint: [[-0.2, -0.2], [0.2, -0.2], [0.2, 0.2], [-0.2, 0.2]]  # เพิ่มขนาด footprint เล็กน้อย
+    footprint_padding: 0.1  # ลด padding เพื่อลดพื้นที่กันชน
+    
+    robot_radius: 0.2  # เพิ่มรัศมีของหุ่นยนต์เล็กน้อย
+    transform_tolerance: 0.2  # ลดค่า tolerance เพื่อเพิ่มความแม่นยำ
+    
+    #set the update frequences (Hz)
+    update_frequency: 5.0  # เพิ่มความถี่ในการอัพเดต
+    
+    # set the publish frequency of the visualization information
+    publish_frequency: 2.0  # เพิ่มความถี่ในการเผยแพร่ข้อมูล
+    
+    # define what coordinate frames the costmap should run in 
+    global_frame: odom
+    
+    # the coordinate frame in costmap should reference for the base of the robot
+    robot_base_frame: base_link
+ 
+    # Whether the costmap will remain centered around the robot as the rovot moves through the world
+    rolling_window: true  # แก้ไขจาก rolling_windows เป็น rolling_window
+    
+    # Setting the width, height and resolution of the costmap || (meters) (meters/cell)
+    width: 3
+    height: 3
+    resolution: 0.1
+    origin_x: -1.5
+    origin_y: -1.5
+
+    # Constructing the Multi-Layered Costmap
+    plugins:
+        - {name: sensor_obstacle, type: "costmap_2d::ObstacleLayer"}
+        - {name: inflation, type: "costmap_2d::InflationLayer"}
+    
+    # Define each layer here ....
+    sensor_obstacle:
+        # Observation_sources <--> define a list of sensors going to pass information to costmap
+        observation_sources: laser_scan_sensor
+        laser_scan_sensor: {sensor_frame: laser_frame, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+    
+    inflation:
+        inflation_radius: 0.6  # ขยายรัศมีการขยายพื้นที่เพื่อเพิ่มความปลอดภัย
+        cost_scaling_factor: 1.0  # คงค่าเดิมไว้

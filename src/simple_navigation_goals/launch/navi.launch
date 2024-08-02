@@ -1,0 +1,41 @@
+<launch>
+	<master auto="start"/>
+	<param name="use_sim_time" value="false"/>
+
+	<!-- Start laser scan -->
+	<node pkg="rplidar_ros" type="rplidarNode" name="rplidarNode" output="screen">
+		<param name="serial_port" type="string" value="/dev/ttyUSB0"/>
+	</node>
+
+	<!-- Start arduino serial interface -->
+	<node pkg="rosserial_arduino" type="serial_node.py" name="rosserial" respawn="true" args="_port:=/dev/ttyUSB1"/>
+
+	<node pkg="tf" type="static_transform_publisher" name="base_link_to_laser_frame" args="0.0 0.0 0.14 0.0 0.0 0.0 base_link laser_frame 100" /> 
+
+	<!-- Run odometry setup node -->
+	<node pkg="odom_setup" type="odom" name="odometryNode" output="screen"/>
+
+	<!-- Run the map server -->
+	<node pkg="map_server" type="map_server" name="map_server" args="/home/aew/sandee/src/simple_navigation_goals/map/test_8.yaml"/>
+
+	<!-- Run AMCL -->
+	<include file="$(find amcl)/examples/amcl_diff.launch" /> 
+
+	<!-- Run move base -->
+	
+	<node pkg="move_base" type="move_base" name="move_base" respawn="true" output="screen">
+		<rosparam file="$(find simple_navigation_goals)/param/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+		<rosparam file="$(find simple_navigation_goals)/param/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+		<rosparam file="$(find simple_navigation_goals)/param/local_costmap_params.yaml" command="load"/>
+		<rosparam file="$(find simple_navigation_goals)/param/global_costmap_params.yaml" command="load"/>
+		<rosparam file="$(find simple_navigation_goals)/param/move_base_params.yaml" command="load"/>
+		<rosparam file="$(find simple_navigation_goals)/param/teb_local_planner_params.yaml" command="load"/>
+ 	</node>
+	
+	<include file="$(find urdf_sandee)/launch/display.launch" /> 
+	
+	<!-- <node pkg="simple_navigation_goals" type="sim_goals" name="sim_goals" output="screen" /> --> 
+	
+	<!-- <node name="rviz" pkg=:"rviz" type="rviz" args="-d $(find rviz)/test_M.rviz"> -->
+
+</launch>

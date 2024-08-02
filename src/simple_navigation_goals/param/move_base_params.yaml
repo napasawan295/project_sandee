@@ -1,0 +1,21 @@
+# Choose which Global Planner Plugin to use
+base_global_planner: navfn/NavfnROS
+# Choose which Local Planner Plugin to use
+base_local_planner: teb_local_planner/TebLocalPlannerROS
+
+controller_frequency: 5.0  # เพิ่มความถี่ของ controller เพื่อให้การตอบสนองเร็วขึ้น
+controller_patience: 3.0  # เพิ่มเวลาอดทนของ controller
+
+planner_frequency: 3.0  # เพิ่มความถี่ของ planner เพื่อให้การวางแผนเส้นทางเร็วขึ้น
+planner_patience: 3.0  # เพิ่มเวลาอดทนของ planner
+
+oscillation_timeout: 30.0  # ลดเวลาที่จะถือว่าหุ่นยนต์เกิดการสั่นไหวเพื่อลดการรอคอยที่ไม่จำเป็น
+oscillation_distance: 0.1  # เพิ่มระยะทางที่จะถือว่าหุ่นยนต์เกิดการสั่นไหวเพื่อลดการตรวจจับผิดพลาด
+
+shutdown_costmap: false
+
+recovery_behavior_enabled: true
+conservative_reset_dist: 0.5  # เพิ่มระยะทางการรีเซ็ตเพื่อให้การเคลียร์พื้นที่กว้างขึ้น
+
+clearing_rotation_allowed: true  # อนุญาตการหมุนเพื่อเคลียร์พื้นที่
+clearing_rotation_radius: 0.6  # เพิ่มรัศมีการหมุนเพื่อให้หุ่นยนต์สามารถหมุนในพื้นที่กว้างขึ้น

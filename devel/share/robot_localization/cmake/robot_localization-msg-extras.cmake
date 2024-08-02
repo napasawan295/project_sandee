@@ -1,0 +1,2 @@
+set(robot_localization_MESSAGE_FILES "")
+set(robot_localization_SERVICE_FILES "/home/aew/sandee/src/robot_localization-noetic-devel/srv/GetState.srv;/home/aew/sandee/src/robot_localization-noetic-devel/srv/SetDatum.srv;/home/aew/sandee/src/robot_localization-noetic-devel/srv/SetPose.srv;/home/aew/sandee/src/robot_localization-noetic-devel/srv/SetUTMZone.srv;/home/aew/sandee/src/robot_localization-noetic-devel/srv/ToggleFilterProcessing.srv;/home/aew/sandee/src/robot_localization-noetic-devel/srv/FromLL.srv;/home/aew/sandee/src/robot_localization-noetic-devel/srv/ToLL.srv")

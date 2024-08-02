@@ -1,0 +1,11 @@
+<launch>
+  <node pkg="laser_scan_matcher" type="laser_scan_matcher_node" name="laser_scan_matcher" output="screen">
+    <param name="base_frame" value="map"/>
+    <param name="odom_frame" value="odom"/>
+    <param name="scan_topic" value="/scan"/>
+    <param name="pose_output" value="/odom"/>
+    <!-- เพิ่มบัฟเฟอร์ในการรับข้อมูล tf --> # Add new 7-8 
+    <param name="tf_buffer_duration" value="10.0"/> <!-- บัฟเฟอร์ 10 วินาที -->
+  </node>
+</launch>
+
