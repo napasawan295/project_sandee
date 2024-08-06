@@ -17,13 +17,13 @@ void setPose(ros::NodeHandle& nh) {
     geometry_msgs::PoseWithCovarianceStamped initial_pose_msg;
     initial_pose_msg.header.stamp = ros::Time::now();
     initial_pose_msg.header.frame_id = "map";
-    initial_pose_msg.pose.pose.position.x = 0.298;
-    initial_pose_msg.pose.pose.position.y = 0.778;
+    initial_pose_msg.pose.pose.position.x = 0.9767409563064575;
+    initial_pose_msg.pose.pose.position.y = 0.7730389833450317;
     initial_pose_msg.pose.pose.position.z = 0;
     initial_pose_msg.pose.pose.orientation.x = 0;
     initial_pose_msg.pose.pose.orientation.y = 0;
-    initial_pose_msg.pose.pose.orientation.z = 0.7192;
-    initial_pose_msg.pose.pose.orientation.w = 0.6948;
+    initial_pose_msg.pose.pose.orientation.z = 0.7061899307755225;
+    initial_pose_msg.pose.pose.orientation.w = 0.708022444327341;
     initial_pose_msg.pose.covariance[0] = 0.25;
     initial_pose_msg.pose.covariance[7] = 0.25;
     initial_pose_msg.pose.covariance[35] = 0.06853892326654787;
@@ -57,46 +57,46 @@ vector<move_base_msgs::MoveBaseGoal> parseGoals(const json& data) {
 
         switch (number) {
             case 0:
-                goal.target_pose.pose.position.x = 0.298;
-                goal.target_pose.pose.position.y = 0.778;
-                goal.target_pose.pose.orientation.z = 0.7192;
-                goal.target_pose.pose.orientation.w = 0.6948;
+                goal.target_pose.pose.position.x = 0.9767409563064575;
+                goal.target_pose.pose.position.y = 0.7730389833450317;
+                goal.target_pose.pose.orientation.z = 0.7061899307755225;
+                goal.target_pose.pose.orientation.w = 0.708022444327341;
                 break;
             case 1:
-                goal.target_pose.pose.position.x = 0.7526435852050781;
-                goal.target_pose.pose.position.y = 2.0905284881591797;
-                goal.target_pose.pose.orientation.z = 0.7264136260662274;
-                goal.target_pose.pose.orientation.w = 0.6872577710475999;
+                goal.target_pose.pose.position.x = 0.9879441261291504;
+                goal.target_pose.pose.position.y = 2.0192620754241943;
+                goal.target_pose.pose.orientation.z = 0.7068718310911537;
+                goal.target_pose.pose.orientation.w = 0.7073416532410908;
                 break;
             case 2:
-                goal.target_pose.pose.position.x = 0.8147426843643188;
-                goal.target_pose.pose.position.y = 7.766988277435303;
-                goal.target_pose.pose.orientation.z = 0.6615929085068617;
-                goal.target_pose.pose.orientation.w = 0.7498632031333657;
+                goal.target_pose.pose.position.x = 1.1633069515228271;
+                goal.target_pose.pose.position.y = 7.598809719085693;
+                goal.target_pose.pose.orientation.z = 0.7176336499479044;
+                goal.target_pose.pose.orientation.w = 0.6964208099004859;
                 break;
             case 3:
-                goal.target_pose.pose.position.x = 2.228806734085083;
-                goal.target_pose.pose.position.y = 8.37690258026123;
-                goal.target_pose.pose.orientation.z = 0.9104235509471554;
-                goal.target_pose.pose.orientation.w = 0.41367735964247826;
+                goal.target_pose.pose.position.x = 2.324207067489624;
+                goal.target_pose.pose.position.y = 8.647153854370117;
+                goal.target_pose.pose.orientation.z = -0.6964207984949514;
+                goal.target_pose.pose.orientation.w = 0.7176336610162976;
                 break;
             case 4:
-                goal.target_pose.pose.position.x = 5.969287295477295;
-                goal.target_pose.pose.position.y = 4.759875297546387;
-                goal.target_pose.pose.orientation.z = -0.9966697172001557;
-                goal.target_pose.pose.orientation.w = 0.08154431197920281;
+                goal.target_pose.pose.position.x = 5.8508052730560303;
+                goal.target_pose.pose.position.y = 4.6246562004089355;
+                goal.target_pose.pose.orientation.z = 0.01909737974351948;
+                goal.target_pose.pose.orientation.w = 0.999817284137682;
                 break;
             case 5:
-                goal.target_pose.pose.position.x = 10.619894981384277;
-                goal.target_pose.pose.position.y = 5.756357192993164;
-                goal.target_pose.pose.orientation.z = -0.9644117701141499;
-                goal.target_pose.pose.orientation.w = 0.26440487451121636;
+                goal.target_pose.pose.position.x = 9.370543479919434;
+                goal.target_pose.pose.position.y = 5.275940418243408;
+                goal.target_pose.pose.orientation.z = -0.7051188962416745;
+                goal.target_pose.pose.orientation.w = 0.7090890932477545;
                 break;
             case 6:
-                goal.target_pose.pose.position.x = 8.190423965454102;
-                goal.target_pose.pose.position.y = 4.163373947143555;
-                goal.target_pose.pose.orientation.z = 0.7230919258198363;
-                goal.target_pose.pose.orientation.w = 0.690781812747647;
+                goal.target_pose.pose.position.x = 8.475961685180664;
+                goal.target_pose.pose.position.y = 4.351451396942139;
+                goal.target_pose.pose.orientation.z = -0.999579629699633;
+                goal.target_pose.pose.orientation.w = 0.028992479879177344;
                 break;
             case -1:
                 goal.target_pose.pose.position.x = 0;
