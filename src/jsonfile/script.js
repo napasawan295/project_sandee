@@ -1,7 +1,38 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const micButton = document.getElementById("micButton");
+
+    // Check if the browser supports getUserMedia
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Request microphone access
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                console.log("Microphone access granted");
+
+                // Create an audio context and media stream source for further processing
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const source = audioContext.createMediaStreamSource(stream);
+
+                // Start audio processing here...
+
+                // Enable the mic button to indicate that recording is active
+                micButton.textContent = "Recording...";
+                micButton.disabled = true;
+            })
+            .catch(error => {
+                console.error("Microphone access denied", error);
+                micButton.textContent = "Microphone access denied";
+            });
+    } else {
+        console.error("getUserMedia not supported in this browser");
+        micButton.textContent = "getUserMedia not supported";
+    }
+});
+
+// Socket.io connection
 const socket = io();
 
 // Create a SpeechRecognition object
-const recognition = new webkitSpeechRecognition();
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 recognition.continuous = true;
 recognition.interimResults = true;
 
@@ -13,7 +44,6 @@ let humantext = '';
 // Start recognition
 recognition.start();
 
-// Start recognition
 recognition.onstart = () => {
     console.log('Speech recognition started');
 };
@@ -31,12 +61,30 @@ recognition.onresult = async (event) => {
     clearTimeout(timeout);
     timeout = setTimeout(async () => {
         await sendSentences();
+
+        //recognition.stop();
+        recognition.start();
     }, 500); // Adjust the delay as needed
 };
 
 // Error handling
 recognition.onerror = (event) => {
     console.error('Speech recognition error:', event.error);
+
+    switch (event.error) {
+        case 'no-speech':
+            console.log('No speech detected. Try again.');
+            break;
+        case 'audio-capture':
+            console.log('No microphone was found. Ensure that a microphone is installed.');
+            break;
+        case 'not-allowed':
+            console.log('Permission to use microphone is denied.');
+            break;
+        default:
+            console.log('An unknown error occurred: ', event.error);
+            break;
+    }
 };
 
 // Function to send sentences to app.js and reset the variable
@@ -44,17 +92,16 @@ async function sendSentences() {
     if (currentSentence !== '') {
         humantext = currentSentence;
         // Send the sentence to app.js via socket.io
-        await socket.emit('speech', [humantext]);
+        await socket.emit('speech', humantext);
         // Clear the current sentence for new input
         currentSentence = '';
     }
 }
 
 socket.on('botText', (bottext) => {
-
     const audio = new Audio();
     tts(bottext);
-    console.log("very good");
+    console.log("TTS processed");
 
     async function tts(bottext) {
         const form = new FormData();
@@ -65,16 +112,14 @@ socket.on('botText', (bottext) => {
                 method: 'POST',
                 body: form,
                 headers: {
-                    'x-access-token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImNwY2FsbGNlbnRlckBraW5wby5jb20udGgiLCJleHAiOjE5MzkxMjY3NDl9.0UIschPQwJp1euUk3el3WFyY_AC2_wO5jq9F4yjdJeo' // แทน YOUR_ACCESS_TOKEN ด้วยโทเคนของคุณ
+                    'x-access-token': 'YOUR_ACCESS_TOKEN' // Replace with your access token
                 }
             });
 
             if (response.ok) {
-
                 const wavBlob = await response.blob();
                 const wavUrl = URL.createObjectURL(wavBlob);
                 playAudio(wavUrl);
-
             } else {
                 console.error('Failed to call the TTS API:', response.status, response.statusText);
             }
