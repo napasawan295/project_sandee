@@ -12,6 +12,7 @@ const io = socketIo(server);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('/home/aew/sandee/src/jsonfile'));
 
+// Serve HTML, CSS, and JS files
 app.get('/', function (_req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -117,7 +118,23 @@ async function nlp(text) {
     return bottext;
 }
 
-const PORT = process.env.PORT || 3000;
+function clearJsonFile() {
+    const jsonFilePath = path.join('/home/aew/sandee/src/jsonfile', 'control.json');
+    const emptyJson = JSON.stringify({}, null, 2); // Create an empty JSON object
+
+    try {
+        fs.writeFileSync(jsonFilePath, emptyJson);
+        console.log('control.json file cleared');
+    } catch (err) {
+        console.error('Error clearing control.json file:', err);
+    }
+}
+
+const PORT = process.env.PORT || 5050;
+
+// Clear the JSON file before starting the server
+clearJsonFile();
+
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
