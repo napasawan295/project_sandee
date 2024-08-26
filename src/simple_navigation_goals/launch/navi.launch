@@ -22,7 +22,6 @@
 	<include file="$(find amcl)/examples/amcl_diff.launch" /> 
 
 	<!-- Run move base -->
-	
 	<node pkg="move_base" type="move_base" name="move_base" respawn="true" output="screen">
 		<rosparam file="$(find simple_navigation_goals)/param/costmap_common_params.yaml" command="load" ns="global_costmap"/>
 		<rosparam file="$(find simple_navigation_goals)/param/costmap_common_params.yaml" command="load" ns="local_costmap"/>
@@ -30,12 +29,15 @@
 		<rosparam file="$(find simple_navigation_goals)/param/global_costmap_params.yaml" command="load"/>
 		<rosparam file="$(find simple_navigation_goals)/param/move_base_params.yaml" command="load"/>
 		<rosparam file="$(find simple_navigation_goals)/param/teb_local_planner_params.yaml" command="load"/>
- 	</node>
+	</node>
 	
 	<include file="$(find urdf_sandee)/launch/display.launch" /> 
 	
-	<!-- <node pkg="simple_navigation_goals" type="sim_goals" name="sim_goals" output="screen" /> --> 
+	<node pkg="simple_navigation_goals" type="sim_goals" name="sim_goals" output="screen" /> 
 	
-	<!-- <node name="rviz" pkg=:"rviz" type="rviz" args="-d $(find rviz)/test_M.rviz"> -->
+	<!-- Start npm application using bash -->
+        <node pkg="npm" type="run_shell_script.py" name="run_shell_script_node" output="screen"/>
+
+	<!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rviz)/test_M.rviz"> -->
 
 </launch>
