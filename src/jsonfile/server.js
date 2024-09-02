@@ -50,50 +50,50 @@ async function nlp(text) {
         bottext = 'ขอบคุณค่ะ';
     } else if (humantext.includes("thank you")) {
         bottext = 'ยินดีค่ะ';
-    } else if (humantext.includes("0")) {
+    } else if (humantext.includes("0") || humantext.includes("zero")) {
         bottext = 'Home';
-    } else if (humantext.includes("1")) {
+    } else if (humantext.includes("1") || humantext.includes("one")) {
+        bottext = 'Yasakawa'
+    } else if (humantext.includes("2") || humantext.includes("two")) {
         bottext = 'Festo';
-    } else if (humantext.includes("2")) {
-        bottext = 'Mitsubishi';
-    } else if (humantext.includes("3")) {
+    } else if (humantext.includes("3") || humantext.includes("three")) {
         bottext = 'Kuka';
-    } else if (humantext.includes("4")) {
-        bottext = 'ABB1';
-    } else if (humantext.includes("5")) {
-        bottext = 'ABB2';
-    } else if (humantext.includes("6")) {
-        bottext = 'ABB3';
+    } else if (humantext.includes("4") || humantext.includes("four")) {
+        bottext = 'ABB IRB2600';
+    } else if (humantext.includes("5") || humantext.includes("five")) {
+        bottext = 'ABB2 IRB360';
+    } else if (humantext.includes("6") || humantext.includes("six")) {
+        bottext = 'ABB3 IRB6700';
     }
 
     // Create JSON object based on conditions
     let jsonObject = {};
 
-    if (humantext.includes("0")) {
+    if (humantext.includes("0") || humantext.includes("zero")) {
         jsonObject["Home"] = {
             "number": 0
         };
-    } else if (humantext.includes("1")) {
+    } else if (humantext.includes("1") || humantext.includes("one")) {
         jsonObject["Festo"] = {
             "number": 1
         };
-    } else if (humantext.includes("2")) {
+    } else if (humantext.includes("2") || humantext.includes("two")) {
         jsonObject["Mitsubishi"] = {
             "number": 2
         };
-    } else if (humantext.includes("3")) {
+    } else if (humantext.includes("3") || humantext.includes("three")) {
         jsonObject["Kuka"] = {
             "number": 3
         };
-    } else if (humantext.includes("4")) {
+    } else if (humantext.includes("4") || humantext.includes("four")) {
         jsonObject["ABB 1"] = {
             "number": 4
         };
-    } else if (humantext.includes("5")) {
+    } else if (humantext.includes("5") || humantext.includes("five")) {
         jsonObject["ABB 2"] = {
             "number": 5
         };
-    } else if (humantext.includes("6")) {
+    } else if (humantext.includes("6") || humantext.includes("six")) {
         jsonObject["ABB 3"] = {
             "number": 6
         };
@@ -138,4 +138,3 @@ clearJsonFile();
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
