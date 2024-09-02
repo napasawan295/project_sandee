@@ -5,7 +5,7 @@
 #include <PID_v1.h>
 
 
-Encoder myEncL(2, 3);
+Encoder myEncL(2, 4);
 Encoder myEncR(18, 19);
 
 long oldPositionL = 0;
